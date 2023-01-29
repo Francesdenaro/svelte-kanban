@@ -12,7 +12,7 @@ app.use(express.json())
 app.use('/api/columns', require('./routes/columnRoutes'))
 app.use('/api/cards', require('./routes/cardRoutes'))
 
-app.get('/', async (req, res) => {})
+app.get('/')
 
 app.listen(port, () => {
 	console.log(`Server is running on port: ${port}`)

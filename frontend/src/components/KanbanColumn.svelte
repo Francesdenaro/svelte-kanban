@@ -3,6 +3,7 @@
 
 	import { createEventDispatcher } from 'svelte'
 	import { onMount } from 'svelte/internal'
+	import AddCard from './AddCard.svelte'
 	import KanbanCard from './KanbanCard.svelte'
 
 	const dispatch = createEventDispatcher()
@@ -52,4 +53,5 @@
 	{#each cards as card}
 		<KanbanCard {card} />
 	{/each}
+	<AddCard columnId={column._id} on:updateCards />
 </div>
