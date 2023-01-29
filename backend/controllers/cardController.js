@@ -30,4 +30,23 @@ const createCard = asyncHandler(async (req, res) => {
 	res.status(200).json(card)
 })
 
-module.exports = { getCards, createCard }
+// @desc  Update card
+// @route PUT /api/cards/cardId
+const updateCard = asyncHandler(async (req, res) => {
+	const card = await Card.findById(req.params.id)
+
+	console.log(card)
+
+	if (!card) {
+		res.status(400)
+		throw new Error('Card not found')
+	}
+
+	const updatedCard = await Card.findByIdAndUpdate(req.params.id, {
+		column: req.body.columnId,
+	})
+
+	res.status(200).json(updatedCard)
+})
+
+module.exports = { getCards, createCard, updateCard }

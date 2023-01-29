@@ -9,6 +9,8 @@
 		return res.json()
 	}
 
+	$: change = false
+
 	onMount(async () => {
 		columns = await getColumns()
 	})
@@ -17,7 +19,15 @@
 <div
 	class="w-full items-stretch overflow-scroll flex gap-10 h-full rounded-lg p-10 bg-sky-100"
 >
-	{#each columns as column}
-		<KanbanColumn {column} />
+	{#each columns as column (column._id)}
+		{#key change}
+			<KanbanColumn
+				{column}
+				on:updateCards={() => {
+					console.log(column.name, 'here')
+					change = !change
+				}}
+			/>
+		{/key}
 	{/each}
 </div>

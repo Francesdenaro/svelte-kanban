@@ -5,9 +5,7 @@
 		e.dataTransfer.setData('id', card._id.toString())
 		e.dataTransfer.setData('parentColumn', card.column)
 	}
-	const handleDragEnd = e => {
-		console.log(e)
-	}
+	const handleDragEnd = e => {}
 </script>
 
 <div

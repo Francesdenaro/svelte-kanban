@@ -1,10 +1,16 @@
 <script async>
+	// @ts-nocheck
+
+	import { createEventDispatcher } from 'svelte'
 	import { onMount } from 'svelte/internal'
 	import KanbanCard from './KanbanCard.svelte'
 
+	const dispatch = createEventDispatcher()
+
 	export let column
 	let dragArea = false
-	let cards = []
+	$: cards = []
+
 	const getCards = async () => {
 		let res = await fetch(`http://localhost:8000/api/cards/${column._id}`)
 		return res.json()
@@ -12,19 +18,34 @@
 
 	onMount(async () => {
 		cards = await getCards()
-		console.log(cards)
 	})
+
+	const updateCard = async e => {
+		const id = e.dataTransfer.getData('id')
+		const res = await fetch(`http://localhost:8000/api/cards/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				columnId: column._id,
+			}),
+		})
+		console.log(res)
+		if (res.status === 200) {
+			cards = await getCards()
+			console.log(column.name, 'Here', cards)
+			dispatch('updateCards', { column: column.id, cards: cards })
+		}
+		dragArea = false
+	}
 </script>
 
 <div
+	data-column={column.name}
 	on:dragover|preventDefault={() => (dragArea = true)}
 	on:dragleave|preventDefault={() => (dragArea = false)}
-	on:drop|preventDefault={e => {
-		const id = e.dataTransfer.getData('id')
-		const parentColumn = e.dataTransfer.getData('parentColumn')
-		dragArea = false
-		console.log(id, parentColumn)
-	}}
+	on:drop|preventDefault={e => updateCard(e)}
 	class="flex gap-2 flex-col rounded-lg {dragArea
 		? 'bg-sky-500'
 		: 'bg-sky-200'} p-6 shrink-0 w-64"
