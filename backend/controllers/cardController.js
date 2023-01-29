@@ -35,8 +35,6 @@ const createCard = asyncHandler(async (req, res) => {
 const updateCard = asyncHandler(async (req, res) => {
 	const card = await Card.findById(req.params.id)
 
-	console.log(card)
-
 	if (!card) {
 		res.status(400)
 		throw new Error('Card not found')
