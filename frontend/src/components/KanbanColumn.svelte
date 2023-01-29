@@ -31,10 +31,8 @@
 				columnId: column._id,
 			}),
 		})
-		console.log(res)
 		if (res.status === 200) {
 			cards = await getCards()
-			console.log(column.name, 'Here', cards)
 			dispatch('updateCards', { column: column.id, cards: cards })
 		}
 		dragArea = false
@@ -46,7 +44,7 @@
 	on:dragover|preventDefault={() => (dragArea = true)}
 	on:dragleave|preventDefault={() => (dragArea = false)}
 	on:drop|preventDefault={e => updateCard(e)}
-	class="flex gap-2 flex-col rounded-lg {dragArea
+	class="flex gap-2 flex-col rounded-lg overflow-scroll {dragArea
 		? 'bg-sky-500'
 		: 'bg-sky-200'} p-6 shrink-0 w-64"
 >
