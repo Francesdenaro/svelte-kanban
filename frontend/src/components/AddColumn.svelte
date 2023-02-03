@@ -20,7 +20,7 @@
 	}
 </script>
 
-<div class="flex gap-5">
+<div class="flex gap-6">
 	<input bind:value={name} type="text" class="shadow-md rounded-lg px-1" />
 	<button
 		on:click={() => addColumn(name)}
