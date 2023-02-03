@@ -25,6 +25,6 @@
 	<button
 		on:click={() => addColumn(name)}
 		class="rounded-lg px-4 py-2 bg-sky-600 text-white hover:bg-sky-400 transition"
-		>+ Add Column</button
+		>+ Add column</button
 	>
 </div>
