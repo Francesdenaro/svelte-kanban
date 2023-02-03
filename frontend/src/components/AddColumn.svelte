@@ -20,11 +20,11 @@
 	}
 </script>
 
-<div class="flex gap-5">
+<div class="flex gap-6">
 	<input bind:value={name} type="text" class="shadow-md rounded-lg px-1" />
 	<button
 		on:click={() => addColumn(name)}
 		class="rounded-lg px-4 py-2 bg-sky-600 text-white hover:bg-sky-400 transition"
-		>+ Add column</button
+		>+ Add Column</button
 	>
 </div>
